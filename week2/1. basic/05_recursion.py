@@ -23,6 +23,9 @@
 """
 
 def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
     """
     재귀를 사용한 팩토리얼 계산
     
@@ -40,6 +43,11 @@ def factorial(n):
     pass
 
 def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2) 
     """
     재귀를 사용한 피보나치 수 계산
     

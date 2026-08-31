@@ -31,6 +31,10 @@
 """
 
 def manage_grades(students):
+    average = sum(students.values()) / len(students)
+    top_student = max(students, key = students.get)
+    top_score = students[top_student]
+    
     """
     학생 성적 관리 시스템
     
@@ -50,6 +54,9 @@ def manage_grades(students):
     return average, top_student, top_score
 
 def find_student_score(students, name):
+    if name in students:
+        return students[name]
+    else: return None
     """
     특정 학생의 점수 조회
     

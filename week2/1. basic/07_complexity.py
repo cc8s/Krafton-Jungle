@@ -31,12 +31,16 @@ def find_duplicates_brute_force(nums):
     duplicates = []
     n = len(nums)
     
+    for i in range(n):
+        for j in range(i + 1, n):
+            if nums[i] == nums[j] and nums[i] not in duplicates:
+                duplicates.append(nums[i])
+    return duplicates
+    
     # TODO: 이중 반복문으로 중복 찾기
     ## i번째 원소와 i+1 이후의 모든 원소를 비교
     ## 같은 원소를 찾으면 duplicates에 추가 (중복 추가 방지 필요)
     pass
-    
-    return duplicates
 
 def find_duplicates_sorting(nums):
     """
@@ -44,18 +48,18 @@ def find_duplicates_sorting(nums):
     시간 복잡도: O(n log n) - 정렬
     공간 복잡도: O(1) - 정렬을 in-place로 수행
     """
+    duplicates = []
+    n = len(nums)
+    # nums가 비어있다면 빈배열 반환하고 종료, 재귀의 basecase역할?->아님 여기선 재귀안씀
     if not nums:
         return []
-    
     # TODO: 배열을 정렬하세요 (nums.sort() 사용)
-    pass
-    
-    duplicates = []
-    
+    nums.sort()
+    for i in range(n - 1):
+        if nums[i] == nums[i + 1] and nums[i] not in duplicates:
+            duplicates.append(nums[i])
     # TODO: 인접한 원소를 비교하여 중복 찾기
     # i와 i+1 원소가 같고, duplicates에 없으면 추가
-    pass
-    
     return duplicates
 
 def find_duplicates_hash(nums):
@@ -64,14 +68,18 @@ def find_duplicates_hash(nums):
     시간 복잡도: O(n)
     공간 복잡도: O(n)
     """
+    # TODO: 각 원소를 순회하면서
+    # 이미 seen에 있으면 duplicates에 추가
+    # 없으면 seen에 추가
     seen = set()
     duplicates = set()
-    
-    # TODO: 각 원소를 순회하면서
-    ## 이미 seen에 있으면 duplicates에 추가
-    ## 없으면 seen에 추가
-    pass
-    
+    n = len(nums)
+
+    for i in range(n):
+        if nums[i] in seen:
+            duplicates.add(nums[i])
+        else:
+            seen.add(nums[i])
     return list(duplicates)
 
 def measure_time(func, nums, method_name):

@@ -122,14 +122,24 @@ def combinations(n: int, k: int) -> list:
     result = []  # 완성된 조합을 모아 둘 곳
 
     def backtrack(start: int, current_combination: list) -> None:
-        """
-        재귀(백트래킹) 헬퍼 함수.
+        if len(current_combination) == k:
+                  result.append(list(current_combination))
+                  return
 
-        Args:
-            start: 이번에 시도해볼 수 있는 가장 작은 숫자
-            current_combination: 지금까지 골라 둔 숫자들 (탐색 중)
-        """
+        for num in range(start, n + 1):
+            current_combination.append(num)
+            backtrack(num + 1, current_combination)
+            current_combination.pop()
 
+    backtrack(1, [])
+    return result
+    
+        # 재귀(백트래킹) 헬퍼 함수.
+
+        # Args:
+        #     start: 이번에 시도해볼 수 있는 가장 작은 숫자
+        #     current_combination: 지금까지 골라 둔 숫자들 (탐색 중)
+        
         # ──────────────────────────────────────────────────────────────────
         # [Level 1] 종료 조건 (Base Case)
         # ──────────────────────────────────────────────────────────────────
@@ -144,8 +154,8 @@ def combinations(n: int, k: int) -> list:
         # if len(current_combination) == ...:
         #     result.append(...)
         #     return
-        pass  
 
+        
         # ──────────────────────────────────────────────────────────────────
         # [Level 2] 가지치기 반복문
         # ──────────────────────────────────────────────────────────────────
@@ -154,7 +164,8 @@ def combinations(n: int, k: int) -> list:
         # - 반복문 변수 이름은 num 으로 추천 (의미: "이번에 고를 숫자").
         #
         # TODO(Level 2): 아래 한 줄을 작성하세요.
-        pass
+          
+
 
             # ──────────────────────────────────────────────────────────────
             # [Level 3] 백트래킹 3단계
@@ -170,8 +181,7 @@ def combinations(n: int, k: int) -> list:
             # current_combination.pop()
 
     # 처음 호출: 시작 숫자는 1, 지금까지 고른 숫자는 비어 있음
-    backtrack(1, [])
-    return result
+    
 
 
 # ============================================================================
