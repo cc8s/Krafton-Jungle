@@ -61,7 +61,7 @@ def dfs(graph, start, visited=None):
     ## 방문하지 않은 정점이면 재귀 호출
     pass
     
-    return visited
+    return order
 
 # 테스트 케이스
 if __name__ == "__main__":
