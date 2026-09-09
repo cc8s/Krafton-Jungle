@@ -43,9 +43,18 @@ def dfs(graph, start, visited=None):
         방문 순서 리스트
     """
     # TODO: visited가 None이면 초기화
-    pass
-    
+    if visited == None:
+        visited = set()
+    order = []
+
+    def search(current: int):
     # TODO: 현재 정점 방문
+        visited.add(current)
+        order.append(current)
+        for nxt in graph[current]:
+            if nxt not in visited:
+                search(nxt)
+    search(start)
     pass
     
     # TODO: 인접한 정점들에 대해 재귀
