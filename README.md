@@ -1,4 +1,4 @@
-# SW-AI 컴퓨팅 사고로의 전환 - 레포지토리 템플릿 (Week 2 / Week 3)
+# SW-AI 컴퓨팅 사고로의 전환 - 레포지토리 템플릿 (Week 2 / Week 3 / Week 4)
 
 ## 📂 폴더 구조
 
@@ -46,6 +46,19 @@ SW-AI-W02-03-TEMPLATE/
 │       ├── 02_lcs.py                # 2차원 DP (최장 공통 부분수열)
 │       ├── 03_dijkstra.py           # 그래프 + heap 최단경로
 │       └── check.py                 # 자동 탐지 채점기 (3개)
+├── week4/                    # ⚠️ C 언어 + Docker DevContainer 환경 (별도 창으로 열기)
+│   ├── .devcontainer/
+│   │   ├── devcontainer.json        # VSCode 컨테이너 환경 설정
+│   │   └── Dockerfile               # C 개발 환경 이미지 정의
+│   ├── .vscode/
+│   │   ├── launch.json              # 디버깅 설정 (F5 실행용)
+│   │   └── tasks.json               # 컴파일 자동화 설정
+│   ├── Data-Structures/
+│   │   ├── Linked_List/             # Q1~Q7_A_LL.c + 문제 PDF
+│   │   ├── Stack_and_Queue/         # Q1~Q7_C_SQ.c + 문제 PDF
+│   │   ├── Binary_Tree/             # Q1~Q8_E_BT.c + 문제 PDF
+│   │   └── Binary_Search_Tree/      # Q1~Q5_F_BST.c + 문제 PDF
+│   └── README.md                    # Docker / DevContainer 설치 및 사용 가이드
 └── README.md                 # 본 문서
 ```
 
@@ -56,11 +69,28 @@ SW-AI-W02-03-TEMPLATE/
 > | `week2/2. advanced` | 5 | 01 ~ 05 | 분할정복·재귀·백트래킹 응용 |
 > | `week3/1. basic` | 9 | 01 ~ 09 | 트리/그래프/DP/그리디 입문 |
 > | `week3/2. advanced` | 3 | 01 ~ 03 | 그래프 응용 + 고급 DP |
+> | `week4/Data-Structures` | 27 | Q1 ~ Q8 | **C 언어** 자료구조 (연결리스트/스택·큐/이진트리/BST) |
 
 
-## ⚙️ 실행 환경 준비 (Python 3 설치)
+## 🐳 Week 4 안내 (C 언어 + Docker)
 
-이 저장소의 모든 문제는 **외부 라이브러리 없이 순수 표준 Python 만으로** 풀 수 있습니다.
+Week 4 는 **Python 이 아니라 C 언어**이며, Docker + VSCode DevContainer 환경에서 진행합니다.
+Week 2 / Week 3 와는 실행 환경도 채점 방식도 완전히 다릅니다 (`check.py` 채점기 없음).
+
+- **사전 준비**: [Docker Desktop](https://www.docker.com/products/docker-desktop) 설치 및 실행
+- **여는 방법**: 저장소 루트가 아니라 **`week4/` 폴더를 별도 VSCode 창으로 열어야** 합니다.
+  `.devcontainer/` 와 `.vscode/` 가 `week4/` 하위에 있어서, 루트를 열면 DevContainer 가 인식되지 않습니다.
+  → 폴더 연 뒤 `Ctrl+Shift+P` → `Dev Containers: Reopen in Container`
+- **디버깅**: 소스에 브레이크포인트 설정 후 `F5`
+- **풀이 순서**: Linked List → Stack and Queue → Binary Tree → Binary Search Tree
+  (각 폴더의 문제 설명 PDF 참조)
+
+자세한 설치/사용법은 [`week4/README.md`](week4/README.md) 를 참고하세요.
+
+
+## ⚙️ 실행 환경 준비 (Python 3 설치) — Week 2 / Week 3
+
+Week 2 / Week 3 의 모든 문제는 **외부 라이브러리 없이 순수 표준 Python 만으로** 풀 수 있습니다.
 추가로 `pip install` 해야 하는 패키지는 없습니다.
 
 ### 필요한 것
