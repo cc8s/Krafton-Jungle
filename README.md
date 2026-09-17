@@ -1,4 +1,4 @@
-# SW-AI 컴퓨팅 사고로의 전환 - 레포지토리 템플릿 (Week 2 / Week 3 / Week 4)
+# SW-AI 컴퓨팅 사고로의 전환 - 레포지토리 템플릿 (Week 2 / Week 3 / Week 4 / Week 5)
 
 ## 📂 폴더 구조
 
@@ -59,6 +59,18 @@ SW-AI-W02-03-TEMPLATE/
 │   │   ├── Binary_Tree/             # Q1~Q8_E_BT.c + 문제 PDF
 │   │   └── Binary_Search_Tree/      # Q1~Q5_F_BST.c + 문제 PDF
 │   └── README.md                    # Docker / DevContainer 설치 및 사용 가이드
+├── week5/                    # ⚠️ C 메모리 버그 디버깅 (gdb) + Docker DevContainer (별도 창으로 열기)
+│   ├── .devcontainer/
+│   │   └── devcontainer.json        # 컨테이너 설정 (SYS_PTRACE 권한, /work 마운트)
+│   ├── .vscode/                     # launch.json / tasks.json (F5 디버깅)
+│   ├── Dockerfile                   # Ubuntu 24.04 + gcc + gdb
+│   ├── Makefile                     # make list / run / gdb / check
+│   ├── scripts/check.sh             # 전 챌린지 실행 → 크래시 여부 요약
+│   ├── challenges/
+│   │   ├── 01_use_after_free/bug.c
+│   │   ├── ...                      # 각 폴더에 버그 하나씩 심어진 bug.c
+│   │   └── 20_vector_stale_pointer/bug.c
+│   └── README.md                    # 챌린지 목록 / gdb 치트시트 / 학습 흐름
 └── README.md                 # 본 문서
 ```
 
@@ -70,6 +82,7 @@ SW-AI-W02-03-TEMPLATE/
 > | `week3/1. basic` | 9 | 01 ~ 09 | 트리/그래프/DP/그리디 입문 |
 > | `week3/2. advanced` | 3 | 01 ~ 03 | 그래프 응용 + 고급 DP |
 > | `week4/Data-Structures` | 27 | Q1 ~ Q8 | **C 언어** 자료구조 (연결리스트/스택·큐/이진트리/BST) |
+> | `week5/challenges` | 20 | 01 ~ 20 | **C 메모리 버그** 디버깅 (UAF/오버플로/double free 등) |
 
 
 ## 🐳 Week 4 안내 (C 언어 + Docker)
@@ -86,6 +99,20 @@ Week 2 / Week 3 와는 실행 환경도 채점 방식도 완전히 다릅니다 
   (각 폴더의 문제 설명 PDF 참조)
 
 자세한 설치/사용법은 [`week4/README.md`](week4/README.md) 를 참고하세요.
+
+
+## 🐞 Week 5 안내 (C 메모리 버그 디버깅)
+
+Week 5 는 버그가 심어진 C 코드 20개를 `gdb` / 로그로 **크래시 지점 역추적 → 원인 분석 → 수정**하는 실습입니다.
+환경은 Week 4 와 같은 Docker + DevContainer 방식이며, 역시 **`week5/` 폴더를 별도 VSCode 창으로 열어야** 합니다.
+
+- **여는 방법**: `week5/` 폴더 열기 → `Ctrl+Shift+P` → `Dev Containers: Reopen in Container`
+- **컨테이너 안 터미널에서**: `make check` (20개 크래시 요약), `make gdb NAME=06_null_deref` (gdb 디버깅)
+- **수정 확인**: `make run NAME=<이름>` 이 크래시 없이 정상 종료(0)하면 해결
+- `build/` 에는 리눅스 바이너리가 생기므로 **빌드/실행은 컨테이너 터미널에서만** 하세요.
+- `week5/.gitattributes` 로 줄바꿈을 LF 로 고정했습니다. (Windows 에서 CRLF 로 바뀌면 `check.sh` / `Makefile` 이 컨테이너에서 깨짐)
+
+자세한 내용은 [`week5/README.md`](week5/README.md) 를 참고하세요.
 
 
 ## ⚙️ 실행 환경 준비 (Python 3 설치) — Week 2 / Week 3

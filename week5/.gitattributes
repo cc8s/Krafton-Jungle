@@ -1,0 +1,2 @@
+# 리눅스 컨테이너에서 실행되는 파일들이라 줄바꿈을 LF로 고정 (Windows autocrlf 대비)
+* text=auto eol=lf
