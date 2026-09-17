@@ -88,9 +88,32 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
-}
+    ListNode *max, *maxPre; // maxPre: 지금까지 찾은 max의 바로 앞 노드
+	ListNode *pre, *cur; // pre: cur의 바로 앞 노드 (매 스텝 갱신)
 
+	max = *ptrHead; 
+	maxPre = NULL;  // head가 곧 max라면, max 앞엔 아무도 없음
+
+	pre = *ptrHead;
+	cur = (*ptrHead) -> next;
+
+	while (cur != NULL) {
+		if (cur -> item > max -> item) 
+		{
+			max = cur;
+			maxPre = pre; // 이 순간의 pre가 곧 max의 새 앞 노드
+		}
+		pre = cur;  // ← 한 칸 전진하기 전에, pre도 같이 밀어준다
+		cur = cur -> next;
+	}
+	if (maxPre != NULL)
+	{
+		maxPre->next = max->next;   // ① max를 건너뛰도록 앞쪽을 연결
+		max->next = *ptrHead;       // ② max가 원래 head였던 노드를 가리키게
+		*ptrHead = max;             // ③ 마지막으로 head 자체를 max로 바꿈
+	}
+	return 0;
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){

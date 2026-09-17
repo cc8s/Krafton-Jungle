@@ -102,7 +102,33 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	// LinkedList를 반쪼갬 쪼개서나온 나머지가 0이면 딱반반 나눠지는 거니까 LinkedList의 length를 반쪼개서 처음부터 해당 인덱스값(length나누기 2한값)까지 frontlist에 집어넣고
+	// 해당 인덱스값+1 부터 length값까지 backlist에 집어넣음 
+	int frontCount;
+	frontCount = (ll->size + 1) / 2;
+
+	resultFrontList->head = NULL;
+	resultFrontList->size = 0;
+
+	resultBackList->head = NULL;
+	resultBackList->size = 0;
+
+	ListNode *cur;
+	int i;
+
+	cur = ll->head;
+	i = 0;
+
+	while (cur != NULL) {
+		if (i < frontCount) {
+			insertNode(resultFrontList, resultFrontList->size, cur->item);
+		}
+		else {
+			insertNode(resultBackList, resultBackList->size, cur->item);
+		}
+		cur = cur->next;
+		i++;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

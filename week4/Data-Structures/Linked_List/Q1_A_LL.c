@@ -89,8 +89,42 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int insertSortedLL(LinkedList *ll, int item)
-{
-	/* add your code here */
+{	// 처음 생각
+	// 목표: c언어로 구현된 링크드리스트 안에 원소 삽입
+	// 필요없음(insertnode에서처리) 1. 조건분기: 배열 안에 원소가 없으면 그냥 바로 item삽입, 있으면 prev또는 next 원소의 주소(택일)에 새로운 원소를 연결
+	// 필요없음(insertnode에서처리) 위치번호만 남기기 2. 삽입이 되었으면 삽입된 item의 앞,뒤 원소의 주소를 수정해줘야함
+	// 3. 이미 insertNode, findNode는 구현이 되어있음.
+	// 안씀 4. findNode로 head부터 순회하며 item이 들어갈 위치를 찾아야함
+
+	// 실제 해야할일
+	// 목표: 정렬된 링크드리스트에 item을 알맞은 자리에 삽입
+	// 1. head부터 cur = cur->next로 순회하면서 몇 번째인지 i로 센다
+	// 2. cur->item이 item보다 큰 지점을 만나면 거기가 자리다
+	//    → insertNode(ll, i, item) 부르고 i를 반환
+	// 3. 끝까지 갔는데 못 찾았으면 맨 뒤가 자리다
+	//    → insertNode(ll, ll->size, item) 부르고 그 위치를 반환
+	// 4. 삽입과 주소 연결은 insertNode가 전부 처리한다
+
+	
+	ListNode *cur;
+	int i;
+
+	cur = ll->head;
+	i = 0;
+
+	while (cur != NULL) {
+		if (cur->item == item) {
+			return -1;
+		}
+		if (cur->item > item) {
+			insertNode(ll, i, item);
+			return i;
+		}
+		cur = cur->next;
+		i++;
+	}
+	insertNode(ll, i,item);
+	return i;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

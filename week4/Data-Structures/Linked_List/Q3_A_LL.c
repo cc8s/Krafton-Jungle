@@ -84,9 +84,43 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void moveOddItemsToBack(LinkedList *ll)
-{
-	/* add your code here */
+void moveOddItemsToBack(LinkedList *ll) {	
+	// 1. 먼저 리스트를 훑으면서 홀수를 제거하고, 그 값들을 어딘가 따로 기억해둔다 (removeNode)
+	// 2. 다 훑은 다음, 기억해둔 값들을 순서대로 insertNode로 맨 끝에 다시 넣는다
+	// 3. 함수는 끝. ll을 직접 고쳤으니 리턴할 게 없다
+	LinkedList oddList;
+	oddList.head = NULL;
+	oddList.size = 0;
+
+	ListNode *cur;
+	int i;
+
+	cur = ll->head;
+	i = 0;
+	// 1단계: ll을 훑으면서 홀수를 찾으면 / oddList에 넣고 (insertNode) / ll에서는 제거 (removeNode)
+	while (cur != NULL) {
+		if (cur->item % 2 != 0) {
+			// ① 값을 어딘가 저장해둔다
+			// ② removeNode로 ll에서 이 노드를 지운다
+			// ③ insertNode로 oddList 끝에 그 값을 넣는다
+			// 그리고 i는 증가시키면 안 됨 (한 칸이 줄었으니까)
+			int value = cur->item;
+			removeNode(ll, i);
+			insertNode(&oddList, oddList.size, value);
+			cur = findNode(ll, i);
+		} else {
+			cur = cur->next;
+			i++;
+		}
+	}
+	// 2단계: oddList에 모인 값들을 ll 끝에 그대로 옮긴다 (insertNode)
+	ListNode *oddCur;
+	oddCur = oddList.head;
+
+	while (oddCur != NULL) {
+		insertNode(ll, ll->size, oddCur->item);
+		oddCur = oddCur->next;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
