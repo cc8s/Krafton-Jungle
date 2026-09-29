@@ -63,8 +63,13 @@ static void expand(const Config *c, const char *tmpl, char *out, size_t outcap) 
             if (kl >= sizeof key) kl = sizeof key - 1;
             memcpy(key, p + 2, kl);
             key[kl] = '\0';
-
-            const char *v = cfg_get(c, key);      
+            /////
+            const char *v = " ";
+            
+            if (cfg_get(c, key) != NULL) {
+                v = cfg_get(c, key);   
+            }                               
+            /////
             size_t vl = strlen(v);                 
             if (o + vl < outcap) { memcpy(out + o, v, vl); o += vl; }
             p = end + 1;
