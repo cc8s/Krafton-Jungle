@@ -51,7 +51,7 @@ typedef struct {
 #define MAXN 16
 typedef struct {
     Rec *by_id[MAXN];     
-    Rec *by_name[MAXN];    
+    Rec *by_name[MAXN];
     int  count;
 } Directory;
 
@@ -102,10 +102,10 @@ static void directory_dump(Directory *d) {
 static void directory_free(Directory *d) {
     for (int i = 0; i < d->count; i++) {
         free(d->by_id[i]->name);
-        free(d->by_id[i]);                 
-    }
-    for (int i = 0; i < d->count; i++) {
-        free(d->by_name[i]);               
+        d->by_id[i]->name = NULL;
+        free(d->by_id[i]);
+        d->by_id[i] = NULL;
+        d->by_name[i] = NULL;
     }
     d->count = 0;
 }
