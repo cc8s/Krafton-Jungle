@@ -1,4 +1,4 @@
-# SW-AI 컴퓨팅 사고로의 전환 - 레포지토리 템플릿 (Week 2 / Week 3 / Week 4 / Week 5)
+# SW-AI 컴퓨팅 사고로의 전환 - 레포지토리 템플릿 (Week 2 / Week 3 / Week 4 / Week 5 / Week 6)
 
 ## 📂 폴더 구조
 
@@ -71,6 +71,16 @@ SW-AI-W02-03-TEMPLATE/
 │   │   ├── ...                      # 각 폴더에 버그 하나씩 심어진 bug.c
 │   │   └── 20_vector_stale_pointer/bug.c
 │   └── README.md                    # 챌린지 목록 / gdb 치트시트 / 학습 흐름
+├── week6/                    # ⚠️ Malloc Lab (C) + Docker DevContainer (별도 창으로 열기)
+│   ├── .devcontainer/               # devcontainer.json + Dockerfile
+│   ├── .vscode/                     # F5 = make clean → make → mdriver -V -f short1-bal.rep 디버깅
+│   ├── malloc-lab/
+│   │   ├── mm.c                     # ★ 구현할 파일 (이 파일만 수정)
+│   │   ├── mdriver.c                # 채점 드라이버
+│   │   ├── Makefile
+│   │   ├── short1-bal.rep, short2-bal.rep
+│   │   └── traces/                  # 채점용 trace 파일들 (*.rep)
+│   └── README.md                    # Docker / DevContainer 사용 가이드
 └── README.md                 # 본 문서
 ```
 
@@ -83,6 +93,7 @@ SW-AI-W02-03-TEMPLATE/
 > | `week3/2. advanced` | 3 | 01 ~ 03 | 그래프 응용 + 고급 DP |
 > | `week4/Data-Structures` | 27 | Q1 ~ Q8 | **C 언어** 자료구조 (연결리스트/스택·큐/이진트리/BST) |
 > | `week5/challenges` | 20 | 01 ~ 20 | **C 메모리 버그** 디버깅 (UAF/오버플로/double free 등) |
+> | `week6/malloc-lab` | 1 | `mm.c` | **Malloc Lab** — `malloc` / `free` / `realloc` 직접 구현, trace 11개로 채점 |
 
 
 ## 🐳 Week 4 안내 (C 언어 + Docker)
@@ -113,6 +124,29 @@ Week 5 는 버그가 심어진 C 코드 20개를 `gdb` / 로그로 **크래시 �
 - `week5/.gitattributes` 로 줄바꿈을 LF 로 고정했습니다. (Windows 에서 CRLF 로 바뀌면 `check.sh` / `Makefile` 이 컨테이너에서 깨짐)
 
 자세한 내용은 [`week5/README.md`](week5/README.md) 를 참고하세요.
+
+
+## 🧱 Week 6 안내 (Malloc Lab)
+
+Week 6 는 CS:APP Malloc Lab 입니다. `malloc-lab/mm.c` 에 동적 메모리 할당기(`mm_init` / `mm_malloc` / `mm_free` / `mm_realloc`)를 구현하고,
+`mdriver` 가 trace 파일들로 **정확성(valid)** 과 **성능(util + thru)** 을 채점합니다.
+환경은 Week 4·5 와 같은 Docker + DevContainer 방식이며, **`week6/` 폴더를 별도 VSCode 창으로 열어야** 합니다.
+
+- **여는 방법**: `week6/` 폴더 열기 → `Ctrl+Shift+P` → `Dev Containers: Reopen in Container`
+- **디버깅**: `mm.c` 에 브레이크포인트 → `F5` (자동으로 `make clean` → `make` → `mdriver -V -f short1-bal.rep`)
+- **컨테이너 터미널에서**:
+  ```bash
+  cd malloc-lab
+  make
+  ./mdriver -V -f short1-bal.rep   # 작은 trace 하나
+  ./mdriver -V                     # traces/ 의 기본 trace 전체 채점
+  ```
+- **수정하는 파일은 `mm.c` 하나**입니다. 시작 코드 상태에서는 `short1` 이 70/100, 전체 채점에서는 realloc trace 들이 `mem_sbrk failed` 로 실패하는 게 정상입니다.
+- **64비트 빌드**입니다 (`Makefile` 에 `-m32` 없음). 포인터가 8바이트라, explicit / seglist 처럼 블록 안에 포인터를 저장할 때는 칸 크기를 맞춰야 합니다.
+- `mdriver` 실행 시 맨 위에 찍히는 `getopt returned: 86` 은 원본 드라이버에 남아 있는 디버그 출력입니다. 채점과 무관합니다.
+- 원본 레포 파일이 CRLF 로 올라와 있어 LF 로 변환하고 `week6/.gitattributes` 로 고정했습니다. (코드 내용은 원본과 동일)
+
+자세한 내용은 [`week6/README.md`](week6/README.md), [`week6/malloc-lab/README.md`](week6/malloc-lab/README.md) 를 참고하세요.
 
 
 ## ⚙️ 실행 환경 준비 (Python 3 설치) — Week 2 / Week 3
